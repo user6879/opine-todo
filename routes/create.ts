@@ -6,7 +6,7 @@ app.post("/create/", (req, res) => {
   if (title && body) {
     addTODO(title, body);
     res.send(
-      { message: "TODO added succesfully." },
+      { message: "TODO added successfully." },
     );
   } else {
     res.send({

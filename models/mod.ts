@@ -42,28 +42,45 @@ function getAll() {
 
 function getOne(id) {
   const db = new DB("todo.db");
-  
-    let data = db.query("SELECT * FROM todo WHERE id = ?",[id]);
-    const json = [];
 
-    for(const [id, title, body] of data){
-        json.push({
-            "id": id,
-            "title": title,
-            "body": body,
-        })
-    }
-    return json[0];
-  
+  let data = db.query("SELECT * FROM todo WHERE id = ?", [id]);
+  const json = [];
+
+  for (const [id, title, body] of data) {
+    json.push({
+      "id": id,
+      "title": title,
+      "body": body,
+    });
+  }
+  return json[0];
 }
 
-function deleteTODO(id){
-    const db = new DB("todo.db");
+function deleteTODO(id) {
+  const db = new DB("todo.db");
 
-    let data = db.query("DELETE FROM todo WHERE id = ?", [id]);
+  let data = db.query("DELETE FROM todo WHERE id = ?", [id]);
 
-    return data
+  return data;
 }
 
+function updateTODO(id, title, body) {
+  const db = new DB("todo.db");
 
-export { addTODO, getAll, getOne, deleteTODO };
+  let data = db.query(
+    `
+    UPDATE todo 
+    SET title = ?,
+        body = ? 
+        WHERE id = ?`,
+    [
+      title,
+      body,
+      id,
+    ],
+  );
+
+  return data;
+}
+
+export { addTODO, deleteTODO, getAll, getOne, updateTODO };
