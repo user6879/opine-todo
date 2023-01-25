@@ -57,5 +57,13 @@ function getOne(id) {
   
 }
 
+function deleteTODO(id){
+    const db = new DB("todo.db");
 
-export { addTODO, getAll, getOne };
+    let data = db.query("DELETE FROM todo WHERE id = ?", [id]);
+
+    return data
+}
+
+
+export { addTODO, getAll, getOne, deleteTODO };
