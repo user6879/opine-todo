@@ -1,5 +1,11 @@
 import { DB } from "../deps.ts";
 
+interface todo {
+  id: int;
+  title: string;
+  body: string;
+}
+
 const db = new DB("todo.db");
 db.execute(`
     CREATE TABLE IF NOT EXISTS todo(
@@ -40,7 +46,7 @@ function getAll() {
   return json;
 }
 
-function getOne(id) {
+function getOne(id): todo {
   const db = new DB("todo.db");
 
   let data = db.query("SELECT * FROM todo WHERE id = ?", [id]);
